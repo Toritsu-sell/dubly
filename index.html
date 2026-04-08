@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dubly — Spanish Dubbing for YouTube Creators</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2eb;
+    --cream: #ede9df;
+    --gold: #c8a84b;
+    --gold-light: #e8c96a;
+    --gray: #6b6b6b;
+    --border: rgba(200,168,75,0.25);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 4rem;
+    border-bottom: 0.5px solid var(--border);
+    background: rgba(10,10,10,0.92);
+    backdrop-filter: blur(12px);
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: -0.02em;
+    color: var(--gold);
+  }
+
+  .logo span { color: var(--white); }
+
+  nav a {
+    color: var(--white);
+    text-decoration: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+
+  nav a:hover { opacity: 1; }
+
+  .nav-cta {
+    background: var(--gold);
+    color: var(--black) !important;
+    opacity: 1 !important;
+    padding: 0.6rem 1.4rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    transition: background 0.2s !important;
+  }
+
+  .nav-cta:hover { background: var(--gold-light) !important; }
+
+  nav .links { display: flex; gap: 2.5rem; align-items: center; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,168,75,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '🇪🇸';
+    position: absolute;
+    bottom: 10%;
+    right: 8%;
+    font-size: 9rem;
+    opacity: 0.06;
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 0.5px solid var(--border);
+    padding: 0.4rem 1rem;
+    width: fit-content;
+    margin-bottom: 2rem;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3rem, 7vw, 6.5rem);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    max-width: 900px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  h1 em {
+    font-style: normal;
+    color: var(--gold);
+  }
+
+  .hero-sub {
+    font-size: clamp(1rem, 1.5vw, 1.2rem);
+    color: rgba(245,242,235,0.6);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-top: 2rem;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 3rem;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--gold);
+    color: var(--black);
+    padding: 1rem 2.5rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); }
+
+  .btn-ghost {
+    color: var(--white);
+    padding: 1rem 2rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    opacity: 0.6;
+    border-bottom: 0.5px solid rgba(245,242,235,0.3);
+    transition: opacity 0.2s;
+  }
+
+  .btn-ghost:hover { opacity: 1; }
+
+  .hero-stat-row {
+    display: flex;
+    gap: 3rem;
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 0.5px solid var(--border);
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+
+  .hero-stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .hero-stat-label {
+    font-size: 0.8rem;
+    color: rgba(245,242,235,0.5);
+    letter-spacing: 0.05em;
+    margin-top: 0.25rem;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* HOW IT WORKS */
+  section { padding: 6rem 4rem; }
+
+  .section-label {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    max-width: 600px;
+  }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0;
+    margin-top: 4rem;
+    border: 0.5px solid var(--border);
+  }
+
+  .step {
+    padding: 2.5rem;
+    border-right: 0.5px solid var(--border);
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .step:last-child { border-right: none; }
+  .step:hover { background: rgba(200,168,75,0.04); }
+
+  .step-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: rgba(200,168,75,0.15);
+    line-height: 1;
+    margin-bottom: 1.5rem;
+  }
+
+  .step h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .step p {
+    font-size: 0.9rem;
+    color: rgba(245,242,235,0.55);
+    line-height: 1.7;
+  }
+
+  /* PRICING */
+  .pricing-section { background: rgba(200,168,75,0.03); }
+
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1px;
+    margin-top: 4rem;
+    background: var(--border);
+  }
+
+  .price-card {
+    background: var(--black);
+    padding: 2.5rem;
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .price-card:hover { background: #111; }
+
+  .price-card.featured {
+    background: #0f0e0a;
+  }
+
+  .price-badge {
+    display: inline-block;
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: var(--gold);
+    color: var(--black);
+    padding: 0.3rem 0.8rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .price-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgba(245,242,235,0.5);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .price-amount {
+    font-family: 'Syne', sans-serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1;
+  }
+
+  .price-amount sup {
+    font-size: 1.2rem;
+    font-weight: 400;
+    vertical-align: super;
+    color: var(--gold);
+  }
+
+  .price-desc {
+    font-size: 0.8rem;
+    color: rgba(245,242,235,0.4);
+    margin: 0.75rem 0 1.5rem;
+  }
+
+  .price-divider {
+    border: none;
+    border-top: 0.5px solid var(--border);
+    margin: 1.5rem 0;
+  }
+
+  .price-feature {
+    font-size: 0.85rem;
+    color: rgba(245,242,235,0.65);
+    padding: 0.4rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .price-feature::before {
+    content: '→';
+    color: var(--gold);
+    font-size: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  /* WHY */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-top: 4rem;
+  }
+
+  .why-card {
+    border: 0.5px solid var(--border);
+    padding: 2rem;
+    transition: border-color 0.3s;
+  }
+
+  .why-card:hover { border-color: var(--gold); }
+
+  .why-icon {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .why-card h3 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .why-card p {
+    font-size: 0.875rem;
+    color: rgba(245,242,235,0.5);
+    line-height: 1.7;
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    text-align: center;
+    border-top: 0.5px solid var(--border);
+    padding: 7rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,168,75,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-section h2 { max-width: 100%; }
+
+  .cta-section p {
+    font-size: 1rem;
+    color: rgba(245,242,235,0.5);
+    margin: 1.5rem auto 2.5rem;
+    max-width: 480px;
+    line-height: 1.7;
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 4rem;
+    border-top: 0.5px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: rgba(245,242,235,0.3);
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    padding: 1rem 0;
+    background: rgba(200,168,75,0.03);
+  }
+
+  .marquee {
+    display: flex;
+    gap: 3rem;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+
+  .marquee span {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(200,168,75,0.5);
+    flex-shrink: 0;
+  }
+
+  .marquee span.dot {
+    color: var(--gold);
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 1.2rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero, section { padding: 5rem 1.5rem 3rem; }
+    .hero-stat-row { gap: 1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Dubl<span>y</span></div>
+  <div class="links nav-links">
+    <a href="#how">How it works</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact" class="nav-cta">Get a free sample</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tag">AI-powered dubbing for YouTube</div>
+  <h1>Your videos.<br><em>500 million</em><br>new viewers.</h1>
+  <p class="hero-sub">We dub your English finance videos into Spanish — same content, your voice translated, delivered in 48 hours and ready to upload to YouTube.</p>
+  <div class="hero-actions">
+    <a href="#contact" class="btn-primary">Get a free sample dub</a>
+    <a href="#pricing" class="btn-ghost">See pricing →</a>
+  </div>
+  <div class="hero-stat-row">
+    <div>
+      <div class="hero-stat-num">500M+</div>
+      <div class="hero-stat-label">Spanish speakers on YouTube</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">48h</div>
+      <div class="hero-stat-label">Delivery turnaround</div>
+    </div>
+    <div>
+      <div class="hero-stat-num">$0</div>
+      <div class="hero-stat-label">Extra work for you</div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee">
+    <span>Spanish</span><span class="dot">✦</span>
+    <span>175+ languages available</span><span class="dot">✦</span>
+    <span>48h turnaround</span><span class="dot">✦</span>
+    <span>No editing needed</span><span class="dot">✦</span>
+    <span>YouTube-ready files</span><span class="dot">✦</span>
+    <span>Finance &amp; business creators</span><span class="dot">✦</span>
+    <span>Spanish</span><span class="dot">✦</span>
+    <span>175+ languages available</span><span class="dot">✦</span>
+    <span>48h turnaround</span><span class="dot">✦</span>
+    <span>No editing needed</span><span class="dot">✦</span>
+    <span>YouTube-ready files</span><span class="dot">✦</span>
+    <span>Finance &amp; business creators</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-label">Process</div>
+  <h2>Three steps. Zero hassle.</h2>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <h3>Send us your videos</h3>
+      <p>Share your YouTube video links or upload files. No special format needed — we handle everything from there.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <h3>We dub into Spanish</h3>
+      <p>Our AI translates and dubs your content preserving your tone, delivery and pacing. Ready within 48 hours.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <h3>Upload to YouTube</h3>
+      <p>We deliver a Spanish audio track you upload directly to YouTube's multi-language feature. Your original video stays untouched.</p>
+    </div>
+    <div class="step">
+      <div class="step-num">04</div>
+      <h3>Watch your audience grow</h3>
+      <p>Spanish speakers discover your content. New subscribers, new views, new ad revenue — from content you already made.</p>
+    </div>
+  </div>
+</section>
+
+<!-- WHY -->
+<section>
+  <div class="section-label">Why Dubly</div>
+  <h2>Built for finance creators who want to scale.</h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-icon">⚡</div>
+      <h3>48-hour delivery</h3>
+      <p>No waiting weeks. Send your videos today, get Spanish audio back within 48 hours, ready to publish.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🎙</div>
+      <h3>Your voice, translated</h3>
+      <p>The Spanish dub preserves your tone, energy and pacing. It sounds like you — just in another language.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">📁</div>
+      <h3>YouTube-native delivery</h3>
+      <p>Files delivered in the exact format YouTube accepts for multi-language audio tracks. Upload in two clicks.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🌎</div>
+      <h3>Biggest untapped market</h3>
+      <p>500M+ Spanish speakers on YouTube. Most English finance creators have zero presence there. That's your opportunity.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">🔄</div>
+      <h3>Works with existing content</h3>
+      <p>No need to re-record anything. We dub your existing library — even your back catalogue of older videos.</p>
+    </div>
+    <div class="why-card">
+      <div class="why-icon">💬</div>
+      <h3>Free sample first</h3>
+      <p>We'll dub one of your videos for free so you can hear the quality before committing to anything.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing" class="pricing-section">
+  <div class="section-label">Pricing</div>
+  <h2>Simple, transparent packages.</h2>
+  <div class="pricing-grid">
+    <div class="price-card">
+      <div class="price-name">Single video</div>
+      <div class="price-amount"><sup>$</sup>60</div>
+      <div class="price-desc">Per video, up to 10 min</div>
+      <hr class="price-divider">
+      <div class="price-feature">1 video dubbed into Spanish</div>
+      <div class="price-feature">Subtitles included</div>
+      <div class="price-feature">Delivered in 48h</div>
+      <div class="price-feature">YouTube-ready file</div>
+    </div>
+    <div class="price-card featured">
+      <div class="price-badge">Most popular</div>
+      <div class="price-name">Growth pack</div>
+      <div class="price-amount"><sup>$</sup>500</div>
+      <div class="price-desc">10 videos, 1 language</div>
+      <hr class="price-divider">
+      <div class="price-feature">10 videos up to 15 min each</div>
+      <div class="price-feature">Spanish dubbing</div>
+      <div class="price-feature">Subtitles included</div>
+      <div class="price-feature">1 revision per video</div>
+      <div class="price-feature">48h per video</div>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Scale pack</div>
+      <div class="price-amount"><sup>$</sup>1,000</div>
+      <div class="price-desc">10 videos, 3 languages</div>
+      <hr class="price-divider">
+      <div class="price-feature">10 videos up to 15 min each</div>
+      <div class="price-feature">Spanish + 2 languages</div>
+      <div class="price-feature">Subtitles in all languages</div>
+      <div class="price-feature">1 revision per video</div>
+      <div class="price-feature">Priority delivery</div>
+    </div>
+    <div class="price-card">
+      <div class="price-name">Monthly retainer</div>
+      <div class="price-amount"><sup>$</sup>400</div>
+      <div class="price-desc">Per month, unlimited videos</div>
+      <hr class="price-divider">
+      <div class="price-feature">All new videos dubbed</div>
+      <div class="price-feature">Spanish dubbing</div>
+      <div class="price-feature">Subtitles included</div>
+      <div class="price-feature">Dedicated account manager</div>
+      <div class="price-feature">Same-week delivery</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="contact" class="cta-section">
+  <div class="section-label">Get started</div>
+  <h2>Hear your voice<br><em>in Spanish</em> — free.</h2>
+  <p>Send us a link to your most popular video. We'll dub it into Spanish and send it back within 48 hours. No commitment, no payment, no strings attached.</p>
+  <a href="/cdn-cgi/l/email-protection#f79f929b9b98b79398959b968e96d994989a" class="btn-primary">Send a video to dub →</a>
+</section>
+
+<footer>
+  <div class="logo" style="font-size:1rem;">Dubl<span>y</span></div>
+  <div>© 2026 Dubly. All rights reserved.</div>
+  <div><a href="/c
